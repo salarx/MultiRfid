@@ -49,6 +49,7 @@ byte scannedarray[4][4];
 byte tagarray[4][4];
 byte mystr[4];
 int j, i;
+bool present = false;
 
 // Inlocking status :
 int tagcount = 0;
@@ -175,11 +176,14 @@ void loop() {
       
     //if (mfrc522[reader].PICC_IsNewC..
   } //for(uint8_t reader..
-  for (j = 0; j < 4; j++) { 
+  for (j = 0; j < 4; j++) {
+    present = false; 
     for (i = 0; i < 4; i++){
       if(tagarray[j][0]==scannedarray[i][0] && tagarray[j][1]==scannedarray[i][1]){
-        continue;}
-        else{
+        present = true;
+        break;
+      }}
+      if(present == false){
             //print
     for(int h=0; h<4;h++){
       Serial.print(tagarray[j][h], HEX);
@@ -188,9 +192,7 @@ void loop() {
       }
       Serial.println(" is non parked");
       Serial.println("");
-    
-      }
-    }       
+      }     
 }
 }
 
